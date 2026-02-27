@@ -74,7 +74,7 @@
 
         /* ── 타이틀 ── */
         .title-section {
-            padding: 20px 24px 24px;
+            padding: 40px 24px 24px;
             text-align: center;
         }
         .event-sub {
@@ -124,7 +124,7 @@
 
         /* ── 메시지 ── */
         .message-section {
-            padding: 0 24px;
+            padding: 30px 24px;
             margin-bottom: 48px;
         }
    
@@ -183,7 +183,8 @@
 
         /* ── 달력 ── */
         .calendar-section {
-            padding: 0 24px 48px;
+            padding: 30px 24px 0;
+            margin-bottom: 48px;
             text-align: center;
         }
         .calendar-date-large {
@@ -342,7 +343,7 @@
 
         /* ── 문의 아코디언 ── */
         .contact-section {
-            margin: 0 24px 48px;
+            margin: 30px 24px 48px;
         }
         .contact-section-label {
             font-family: 'Crimson Pro', serif;
@@ -830,18 +831,22 @@ let musicPlaying = false;
     const music = document.getElementById('bgMusic');
     music.volume = 0.5;
 
-    // 첫 터치/클릭 시 자동 재생
-    const startOnInteraction = () => {
+    function startMusic() {
         if (musicPlaying) return;
         music.play().then(() => {
             musicPlaying = true;
             document.getElementById('musicIcon').className = 'fas fa-volume-up';
+            document.removeEventListener('click', startMusic);
+            document.removeEventListener('touchstart', startMusic);
         }).catch(() => {});
-        document.removeEventListener('click', startOnInteraction);
-        document.removeEventListener('touchstart', startOnInteraction);
-    };
-    document.addEventListener('click', startOnInteraction);
-    document.addEventListener('touchstart', startOnInteraction);
+    }
+
+    // 페이지 로드 시 바로 시도 (PC 일부 브라우저는 허용)
+    startMusic();
+
+    // 실패 시 첫 터치/클릭 때 재생
+    document.addEventListener('click', startMusic);
+    document.addEventListener('touchstart', startMusic);
 })();
 
 function toggleMusic() {

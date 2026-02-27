@@ -27,7 +27,7 @@
         .invite-card {
             width: 100%;
             max-width: 430px;
-            background: #fff;
+            background: #F8F9FB;
             position: relative;
             overflow: hidden;
         }
@@ -37,7 +37,7 @@
             position: relative;
             width: 100%;
             aspect-ratio: 4/3;
-            overflow: hidden;
+            background: #F8F9FB;
         }
         .hero img {
             width: 100%;
@@ -47,13 +47,16 @@
         }
         .hero-overlay {
             position: absolute;
-            inset: 0;
+            inset: 0 0 -12px 0;
             background: linear-gradient(
                 to bottom,
-                rgba(242,245,255,0) 40%,
-                rgba(242,245,255,0.5) 75%,
-                rgba(255,255,255,1) 100%
+                rgba(248,249,251,0) 50%,
+                rgba(248,249,251,0.1) 65%,
+                rgba(248,249,251,0.35) 78%,
+                rgba(248,249,251,0.7) 90%,
+                rgba(248,249,251,1) 100%
             );
+            z-index: 1;
         }
         .hero-badge {
             position: absolute;
@@ -71,7 +74,7 @@
 
         /* ── 타이틀 ── */
         .title-section {
-            padding: 4px 24px 24px;
+            padding: 20px 24px 24px;
             text-align: center;
         }
         .event-sub {
@@ -122,7 +125,7 @@
         /* ── 메시지 ── */
         .message-section {
             padding: 0 24px;
-            margin-bottom: 26px;
+            margin-bottom: 48px;
         }
    
         .message-label {
@@ -180,7 +183,7 @@
 
         /* ── 달력 ── */
         .calendar-section {
-            padding: 0 24px 28px;
+            padding: 0 24px 48px;
             text-align: center;
         }
         .calendar-date-large {
@@ -251,7 +254,7 @@
         }
         .cal-day.other-month { color: #ddd; }
         .cal-day.event-day {
-            background: #F49097;
+            background: #6C9CFE;
             color: #fff;
             font-weight: 700;
             border-radius: 50%;
@@ -309,7 +312,7 @@
 
         /* ── 지도 ── */
         .map-section {
-            margin: 0 24px 28px;
+            margin: 0 24px 48px;
         }
         .map-section-label {
             font-family: 'Crimson Pro', serif;
@@ -339,7 +342,7 @@
 
         /* ── 문의 아코디언 ── */
         .contact-section {
-            margin: 0 24px 28px;
+            margin: 0 24px 48px;
         }
         .contact-section-label {
             font-family: 'Crimson Pro', serif;
@@ -417,7 +420,7 @@
         .contact-call-btn {
             margin-left: auto;
             padding: 7px 14px;
-            background: #F49097;
+            background: #6C9CFE;
             color: #fff;
             border: none;
             border-radius: 8px;
@@ -459,7 +462,7 @@
 
         /* ── 카카오 공유 ── */
         .share-section {
-            padding: 0 24px 28px;
+            padding: 0 24px 48px;
         }
         .btn-kakao-share {
             width: 100%;
@@ -488,9 +491,38 @@
             padding: 0 24px 24px;
             line-height: 1.7;
         }
+        /* ── 음악 버튼 ── */
+        .music-btn {
+            position: fixed;
+            top: 18px;
+            right: 18px;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.85);
+            border: none;
+            cursor: pointer;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            backdrop-filter: blur(4px);
+            transition: opacity 0.2s;
+        }
+        .music-btn:hover { opacity: 0.8; }
+        .music-btn i { font-size: 16px; color: #555; }
     </style>
 </head>
 <body>
+
+<!-- 배경음악 -->
+<audio id="bgMusic" src="27510D425854D91F34.mp3" loop></audio>
+
+<!-- 음악 토글 버튼 -->
+<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
+    <i class="fas fa-volume-up" id="musicIcon"></i>
+</button>
 
 <div class="invite-card">
 
@@ -789,6 +821,41 @@ function shareKakao() {
             },
         ],
     });
+}
+
+// ── 배경음악 ──
+let musicPlaying = false;
+
+(function initMusic() {
+    const music = document.getElementById('bgMusic');
+    music.volume = 0.5;
+
+    // 첫 터치/클릭 시 자동 재생
+    const startOnInteraction = () => {
+        if (musicPlaying) return;
+        music.play().then(() => {
+            musicPlaying = true;
+            document.getElementById('musicIcon').className = 'fas fa-volume-up';
+        }).catch(() => {});
+        document.removeEventListener('click', startOnInteraction);
+        document.removeEventListener('touchstart', startOnInteraction);
+    };
+    document.addEventListener('click', startOnInteraction);
+    document.addEventListener('touchstart', startOnInteraction);
+})();
+
+function toggleMusic() {
+    const music = document.getElementById('bgMusic');
+    const icon  = document.getElementById('musicIcon');
+    if (musicPlaying) {
+        music.pause();
+        musicPlaying = false;
+        icon.className = 'fas fa-volume-mute';
+    } else {
+        music.play().catch(() => {});
+        musicPlaying = true;
+        icon.className = 'fas fa-volume-up';
+    }
 }
 
 // ── 문의 아코디언 ──

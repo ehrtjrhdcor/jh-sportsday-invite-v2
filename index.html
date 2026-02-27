@@ -8,6 +8,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Kakao SDK -->
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"></script>
+    <!-- Kakao Maps JS API -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=a23deef6d95570902f15e2c58fe9a3af&libraries=services"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -318,21 +322,12 @@
             margin-bottom: 14px;
             display: block;
         }
-        .map-placeholder {
+        #map {
             width: 100%;
             height: 220px;
-            background: #f0f0f0;
             border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            color: #bbb;
-            font-size: 13px;
-            border: 1px dashed #ddd;
+            overflow: hidden;
         }
-        .map-placeholder i { font-size: 28px; color: #F49097; opacity: 0.6; }
         .map-addr {
             margin-top: 12px;
             text-align: center;
@@ -433,6 +428,30 @@
             text-decoration: none;
             display: inline-block;
         }
+
+        /* ── 카카오 공유 ── */
+        .share-section {
+            padding: 0 24px 28px;
+        }
+        .btn-kakao-share {
+            width: 100%;
+            height: 52px;
+            background: #FEE500;
+            border: none;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            font-family: 'Gowun Dodum', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: #3C1E1E;
+            transition: background 0.2s;
+        }
+        .btn-kakao-share:hover { background: #f5dc00; }
+        .btn-kakao-share i { font-size: 18px; }
 
         .footer-note {
             text-align: center;
@@ -538,10 +557,7 @@
     <!-- 지도 -->
     <div class="map-section">
         <span class="map-section-label">Location</span>
-        <div class="map-placeholder">
-            <i class="fas fa-map-marker-alt"></i>
-            지도 영역
-        </div>
+        <div id="map"></div>
         <div class="map-addr">
             <strong>중흥골드스파&amp;리조트 운동장</strong><br>
             나주호로 558-314
@@ -565,6 +581,14 @@
                 <a class="contact-call-btn" href="tel:01049464172">전화하기</a>
             </div>
         </div>
+    </div>
+
+    <!-- 카카오톡 공유 -->
+    <div class="share-section">
+        <button class="btn-kakao-share" onclick="shareKakao()">
+            <i class="fas fa-comment-dots"></i>
+            카카오톡으로 공유하기
+        </button>
     </div>
 
     <p class="footer-note">
@@ -634,6 +658,56 @@
     update();
     setInterval(update, 1000);
 })();
+
+// ── 카카오맵 ──
+(function initMap() {
+    if (typeof kakao === 'undefined') return;
+    var container = document.getElementById('map');
+    var map = new kakao.maps.Map(container, {
+        center: new kakao.maps.LatLng(35.0094, 126.7210),
+        level: 4
+    });
+    var ps = new kakao.maps.services.Places();
+    ps.keywordSearch('중흥골드스파앤리조트', function(data, status) {
+        if (status === kakao.maps.services.Status.OK) {
+            var coords = new kakao.maps.LatLng(data[0].y, data[0].x);
+            map.setCenter(coords);
+            new kakao.maps.Marker({ map: map, position: coords });
+        }
+    });
+})();
+
+// ── 카카오 SDK 초기화 & 공유 ──
+if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {
+    Kakao.init('a23deef6d95570902f15e2c58fe9a3af');
+}
+function shareKakao() {
+    if (typeof Kakao === 'undefined' || !Kakao.isInitialized()) {
+        alert('카카오톡 공유 기능을 불러오는 중입니다. 잠시 후 다시 시도해주세요.');
+        return;
+    }
+    Kakao.Share.sendDefault({
+        objectType: 'feed',
+        content: {
+            title: '제 2회 쌍촌 하계 체육대회 초대장',
+            description: '2026년 5월 9일 토요일 | 중흥골드스파&리조트',
+            imageUrl: 'https://ehrtjrhdcor.github.io/jh-sportsday-invite/images/KakaoTalk_20260227_144641627.jpg',
+            link: {
+                mobileWebUrl: 'https://ehrtjrhdcor.github.io/jh-sportsday-invite/',
+                webUrl: 'https://ehrtjrhdcor.github.io/jh-sportsday-invite/',
+            },
+        },
+        buttons: [
+            {
+                title: '초대장 보기',
+                link: {
+                    mobileWebUrl: 'https://ehrtjrhdcor.github.io/jh-sportsday-invite/',
+                    webUrl: 'https://ehrtjrhdcor.github.io/jh-sportsday-invite/',
+                },
+            },
+        ],
+    });
+}
 
 // ── 문의 아코디언 ──
 function toggleContact() {

@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제 2회 쌍촌 하계 체육대회 초대장</title>
+    <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Gowun Dodum', '고운돋음', sans-serif;
+            background: #F2F5FF;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .invite-card {
+            width: 100%;
+            max-width: 430px;
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ── 히어로 ── */
+        .hero {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+        }
+        .hero img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(242,245,255,0) 40%,
+                rgba(242,245,255,0.5) 75%,
+                rgba(255,255,255,1) 100%
+            );
+        }
+        .hero-badge {
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            background: #F49097;
+            color: #fff;
+            font-family: 'Crimson Pro', serif;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            padding: 5px 14px;
+            border-radius: 20px;
+        }
+
+        /* ── 타이틀 ── */
+        .title-section {
+            padding: 4px 24px 24px;
+            text-align: center;
+        }
+        .event-sub {
+            font-family: 'Crimson Pro', serif;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #F49097;
+            margin-bottom: 10px;
+            display: block;
+            text-transform: uppercase;
+        }
+        .event-title {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 30px;
+            font-weight: 900;
+            color: #91004f;
+            line-height: 1.25;
+            margin-bottom: 10px;
+        }
+        .event-title .hl { color: #91004f; }
+        .date-chip {
+            display: inline-block;
+            background: transparent;
+            border: 1px solid #dddddd;
+            color: #333;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+
+        /* ── 구분선 ── */
+        .divider {
+            height: 1px;
+            margin: 0 24px 26px;
+            background: linear-gradient(90deg, transparent, #F4909766, #F5E96066, transparent);
+        }
+                
+        .greeting-divider {
+            width: 100px;
+            height: 1px;
+            background-color: #ddd;
+            margin: 25px auto;
+        }
+
+
+        /* ── 메시지 ── */
+        .message-section {
+            padding: 0 24px;
+            margin-bottom: 26px;
+        }
+   
+        .message-label {
+            font-family: 'Nanum Myeongjo', serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #91004f;
+            margin-bottom: 14px;
+            display: block;
+            text-align: center;
+        }
+        .message-text {
+            font-size: 14px;
+            line-height: 2;
+            color: #444;
+            word-break: keep-all;
+            text-align: center;
+        }
+        .message-text strong { color: #222; }
+        .signature {
+            margin-top: 18px;
+            text-align: center;
+            font-size: 13px;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* ── 현장 사진 ── */
+        .photo-section {
+            padding: 0 24px;
+            margin-bottom: 26px;
+        }
+        .photo-wrap {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+        .photo-wrap img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+        }
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px 14px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.38));
+            color: rgba(255,255,255,0.92);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* ── 달력 ── */
+        .calendar-section {
+            padding: 0 24px 28px;
+            text-align: center;
+        }
+        .calendar-date-large {
+            font-family: 'Crimson Pro', serif;
+            font-size: 20px;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 4px;
+            letter-spacing: 2px;
+        }
+        .calendar-day-label {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .calendar-container {
+            max-width: 320px;
+            margin: 0 auto 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 14px 0;
+            position: relative;
+        }
+        .calendar-container::before,
+        .calendar-container::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            height: 1px;
+            background: #eee;
+        }
+        .calendar-container::before { top: 0; }
+        .calendar-container::after  { bottom: 0; }
+        .calendar-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            width: 100%;
+            margin-bottom: 2px;
+        }
+        .calendar-header span {
+            width: 40px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #888;
+            font-weight: 600;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            width: 100%;
+        }
+        .cal-day {
+            width: 40px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            color: #333;
+            border-radius: 50%;
+            margin: 2px 0;
+        }
+        .cal-day.other-month { color: #ddd; }
+        .cal-day.event-day {
+            background: #F49097;
+            color: #fff;
+            font-weight: 700;
+            border-radius: 50%;
+        }
+
+        /* ── 카운트다운 ── */
+        .countdown-section {
+            margin-top: 20px;
+        }
+        .countdown-labels {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        .countdown-label-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 44px;
+        }
+        .countdown-label {
+            font-family: 'Crimson Pro', serif;
+            font-size: 10px;
+            color: #aaa;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 3px;
+        }
+        .countdown-value {
+            font-family: 'Crimson Pro', serif;
+            font-size: 26px;
+            font-weight: 400;
+            color: #333;
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+        .countdown-sep {
+            font-family: 'Crimson Pro', serif;
+            font-size: 14px;
+            color: #ccc;
+            align-self: flex-start;
+            margin-top: 16px;
+        }
+        .countdown-msg {
+            font-size: 13px;
+            color: #888;
+            text-align: center;
+        }
+        .countdown-msg .cnt-num {
+            color: #F49097;
+            font-weight: 700;
+        }
+
+        /* ── 지도 ── */
+        .map-section {
+            margin: 0 24px 28px;
+        }
+        .map-section-label {
+            font-family: 'Crimson Pro', serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #aaa;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 14px;
+            display: block;
+        }
+        .map-placeholder {
+            width: 100%;
+            height: 220px;
+            background: #f0f0f0;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #bbb;
+            font-size: 13px;
+            border: 1px dashed #ddd;
+        }
+        .map-placeholder i { font-size: 28px; color: #F49097; opacity: 0.6; }
+        .map-addr {
+            margin-top: 12px;
+            text-align: center;
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .map-addr strong { color: #222; font-size: 14px; }
+
+        /* ── 문의 아코디언 ── */
+        .contact-section {
+            margin: 0 24px 28px;
+        }
+        .contact-section-label {
+            font-family: 'Crimson Pro', serif;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #aaa;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 14px;
+            display: block;
+        }
+        .contact-toggle {
+            width: 100%;
+            height: 50px;
+            background: #F2F5FF;
+            border: none;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: 'Gowun Dodum', sans-serif;
+        }
+        .contact-toggle:hover { background: #e8ecff; }
+        .contact-toggle-label {
+            font-size: 14px;
+            color: #333;
+            font-weight: 600;
+        }
+        .contact-arrow {
+            font-size: 12px;
+            color: #aaa;
+            transition: transform 0.3s;
+        }
+        .contact-arrow.open { transform: rotate(180deg); }
+        .contact-content {
+            display: none;
+            background: #fff;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            margin-top: 8px;
+            padding: 18px 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .contact-phone-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .contact-phone-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: #F5E960;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            color: #555;
+            flex-shrink: 0;
+        }
+        .contact-phone-number {
+            font-size: 16px;
+            font-weight: 700;
+            color: #222;
+        }
+        .contact-phone-sub {
+            font-size: 11px;
+            color: #aaa;
+            margin-top: 2px;
+        }
+        .contact-call-btn {
+            margin-left: auto;
+            padding: 7px 14px;
+            background: #F49097;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Gowun Dodum', sans-serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 11px;
+            color: #ccc;
+            padding: 0 24px 24px;
+            line-height: 1.7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="invite-card">
+
+    <!-- 히어로: 리조트 항공샷 -->
+    <div class="hero">
+        <img src="images/KakaoTalk_20260227_144641627.jpg" alt="중흥골드스파&amp;리조트">
+        <div class="hero-overlay"></div>
+        <div class="hero-badge">Invitation</div>
+    </div>
+
+    <!-- 타이틀 -->
+    <div class="title-section">
+        <span class="event-sub">Family Sports Day</span>
+        <h1 class="event-title">
+            <span class="hl">제 2회 쌍촌<br>하계 체육대회</span>
+        </h1>
+        <span class="date-chip">📅 2026. 05. 09 (토)</span>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 초대 메시지 -->
+    <div class="message-section">
+        <div class="message-card">
+            <span class="message-label">초 / 대 / 합 / 니 / 다</span>
+            <div class="message-text">
+                우리는 아이들이 이기는 법뿐 아니라, <br>
+                지는 법도 배우길 바랍니다.<br>
+                <br>
+                피하지 않고, 끝까지 해보고,<br>
+                결과를 받아들이는 힘.<br>
+                <br>
+                가족이 함께 응원하고 함께 뛰는<br>
+                작지만 단단한 운동회를 준비했습니다.<br>
+                <br>
+                승부는 진지하게, 분위기는 유쾌하게.<br>
+                함께해 주세요.
+            </div>
+            <div class="signature">— 정정길 배상 —</div>
+        </div>
+    </div>
+
+    <!-- 현장 사진: 아이들 시소 -->
+    <!-- <div class="photo-section">
+        <div class="photo-wrap">
+            <img src="/pages/images/KakaoTalk_20260227_144641627_01.jpg" alt="행사장">
+            <div class="photo-caption">중흥골드스파&amp;리조트 운동장</div>
+        </div>
+    </div> -->
+    <div class="greeting-divider"></div>
+    <!-- 달력 -->
+    <div class="calendar-section">
+        <div class="calendar-date-large">2026.05.09</div>
+        <div class="calendar-day-label">토요일</div>
+
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <span>일</span><span>월</span><span>화</span><span>수</span>
+                <span>목</span><span>금</span><span>토</span>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+        </div>
+
+        <div class="countdown-section">
+            <div class="countdown-labels">
+                <div class="countdown-label-item">
+                    <div class="countdown-label">DAYS</div>
+                    <div class="countdown-value" id="cntDays">00</div>
+                </div>
+                <div class="countdown-sep">:</div>
+                <div class="countdown-label-item">
+                    <div class="countdown-label">HOUR</div>
+                    <div class="countdown-value" id="cntHours">00</div>
+                </div>
+                <div class="countdown-sep">:</div>
+                <div class="countdown-label-item">
+                    <div class="countdown-label">MIN</div>
+                    <div class="countdown-value" id="cntMinutes">00</div>
+                </div>
+                <div class="countdown-sep">:</div>
+                <div class="countdown-label-item">
+                    <div class="countdown-label">SEC</div>
+                    <div class="countdown-value" id="cntSeconds">00</div>
+                </div>
+            </div>
+            <div class="countdown-msg">
+                운동회까지 <span class="cnt-num" id="cntDayCount">0</span>일 남았습니다.
+            </div>
+        </div>
+    </div>
+
+    <!-- 지도 -->
+    <div class="map-section">
+        <span class="map-section-label">Location</span>
+        <div class="map-placeholder">
+            <i class="fas fa-map-marker-alt"></i>
+            지도 영역
+        </div>
+        <div class="map-addr">
+            <strong>중흥골드스파&amp;리조트 운동장</strong><br>
+            나주호로 558-314
+        </div>
+    </div>
+
+    <!-- 문의 아코디언 -->
+    <div class="contact-section">
+        <span class="contact-section-label">Contact</span>
+        <button class="contact-toggle" onclick="toggleContact()">
+            <span class="contact-toggle-label">문의</span>
+            <span class="contact-arrow" id="contactArrow">▼</span>
+        </button>
+        <div class="contact-content" id="contactContent">
+            <div class="contact-phone-row">
+                <div class="contact-phone-icon"><i class="fas fa-phone"></i></div>
+                <div>
+                    <div class="contact-phone-number">010-4946-4172</div>
+                    <div class="contact-phone-sub">운동회 관련 문의</div>
+                </div>
+                <a class="contact-call-btn" href="tel:01049464172">전화하기</a>
+            </div>
+        </div>
+    </div>
+
+    <p class="footer-note">
+        많은 참여 부탁드립니다 🎉
+    </p>
+
+</div>
+
+<script>
+// ── 달력 생성 ──
+(function initCalendar() {
+    const grid = document.getElementById('calendarGrid');
+    if (!grid) return;
+
+    const year = 2026, month = 4, eventDay = 9; // May = index 4
+    const firstDay = new Date(year, month, 1).getDay(); // 5 = Friday
+    const daysInMonth = new Date(year, month + 1, 0).getDate(); // 31
+    const prevLast = new Date(year, month, 0).getDate();
+
+    // 이전 달 채우기
+    for (let i = firstDay - 1; i >= 0; i--) {
+        const d = document.createElement('div');
+        d.className = 'cal-day other-month';
+        d.textContent = prevLast - i;
+        grid.appendChild(d);
+    }
+    // 현재 달
+    for (let date = 1; date <= daysInMonth; date++) {
+        const d = document.createElement('div');
+        d.className = 'cal-day' + (date === eventDay ? ' event-day' : '');
+        d.textContent = date;
+        grid.appendChild(d);
+    }
+    // 다음 달 채우기
+    const total = grid.children.length;
+    for (let i = 1; i <= 42 - total; i++) {
+        const d = document.createElement('div');
+        d.className = 'cal-day other-month';
+        d.textContent = i;
+        grid.appendChild(d);
+    }
+})();
+
+// ── 카운트다운 ──
+(function initCountdown() {
+    const target = new Date('2026-05-09T00:00:00');
+    function update() {
+        const diff = target - new Date();
+        if (diff <= 0) {
+            ['cntDays','cntHours','cntMinutes','cntSeconds'].forEach(id => {
+                document.getElementById(id).textContent = '00';
+            });
+            document.getElementById('cntDayCount').textContent = '0';
+            return;
+        }
+        const days    = Math.floor(diff / 86400000);
+        const hours   = Math.floor((diff % 86400000) / 3600000);
+        const minutes = Math.floor((diff % 3600000)  / 60000);
+        const seconds = Math.floor((diff % 60000)    / 1000);
+
+        document.getElementById('cntDays').textContent    = String(days).padStart(2,'0');
+        document.getElementById('cntHours').textContent   = String(hours).padStart(2,'0');
+        document.getElementById('cntMinutes').textContent = String(minutes).padStart(2,'0');
+        document.getElementById('cntSeconds').textContent = String(seconds).padStart(2,'0');
+        document.getElementById('cntDayCount').textContent = days;
+    }
+    update();
+    setInterval(update, 1000);
+})();
+
+// ── 문의 아코디언 ──
+function toggleContact() {
+    const content = document.getElementById('contactContent');
+    const arrow   = document.getElementById('contactArrow');
+    const isOpen  = content.style.display === 'block';
+    content.style.display = isOpen ? 'none' : 'block';
+    arrow.classList.toggle('open', !isOpen);
+}
+</script>
+
+</body>
+</html>

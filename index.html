@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Kakao SDK -->
     <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"></script>
-    <!-- Kakao Maps JS API -->
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=115806c46c36d8fd325a360707de3698&libraries=services"></script>
+    <!-- 네이버 지도 API -->
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=2wtt0c80a1"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -429,6 +429,38 @@
             display: inline-block;
         }
 
+        /* ── 내비게이션 버튼 ── */
+        .navigation-section {
+            margin-top: 16px;
+        }
+        .navigation-buttons {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .btn-nav {
+            padding: 14px 10px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            font-family: 'Gowun Dodum', sans-serif;
+            color: #333;
+            transition: all 0.2s;
+        }
+        .btn-nav:hover { background: #f5f5f5; transform: translateY(-2px); }
+        .btn-nav i { font-size: 22px; }
+        .btn-nav.naver i { color: #03C75A; }
+        .btn-nav.google i { color: #4285F4; }
+        .btn-nav.kakao i { color: #F9E000; }
+        .btn-nav.tmap i { color: #0066FF; }
+
         /* ── 카카오 공유 ── */
         .share-section {
             padding: 0 24px 28px;
@@ -562,6 +594,28 @@
             <strong>중흥골드스파&amp;리조트 운동장</strong><br>
             나주호로 558-314
         </div>
+
+        <!-- 내비게이션 버튼 -->
+        <div class="navigation-section">
+            <div class="navigation-buttons">
+                <button onclick="openNaverMap()" class="btn-nav naver">
+                    <i class="fas fa-map-marked-alt"></i>
+                    네이버지도
+                </button>
+                <button onclick="openGoogleMap()" class="btn-nav google">
+                    <i class="fab fa-google"></i>
+                    구글지도
+                </button>
+                <button onclick="openKakaoNavi()" class="btn-nav kakao">
+                    <i class="fas fa-car"></i>
+                    카카오내비
+                </button>
+                <button onclick="openTmap()" class="btn-nav tmap">
+                    <i class="fas fa-route"></i>
+                    티맵
+                </button>
+            </div>
+        </div>
     </div>
 
     <!-- 문의 아코디언 -->
@@ -659,23 +713,55 @@
     setInterval(update, 1000);
 })();
 
-// ── 카카오맵 ──
-(function initMap() {
-    if (typeof kakao === 'undefined') return;
-    var container = document.getElementById('map');
-    var map = new kakao.maps.Map(container, {
-        center: new kakao.maps.LatLng(35.0094, 126.7210),
-        level: 4
+// ── 네이버 지도 ──
+function initNaverMap() {
+    if (typeof naver === 'undefined') return;
+    // ⭐ 중흥골드스파&리조트 좌표 (나주호로 558-314)
+    const location = new naver.maps.LatLng(34.9798, 126.8968);
+    const map = new naver.maps.Map('map', {
+        center: location,
+        zoom: 16,
+        zoomControl: true,
+        zoomControlOptions: { position: naver.maps.Position.TOP_RIGHT }
     });
-    var ps = new kakao.maps.services.Places();
-    ps.keywordSearch('중흥골드스파앤리조트', function(data, status) {
-        if (status === kakao.maps.services.Status.OK) {
-            var coords = new kakao.maps.LatLng(data[0].y, data[0].x);
-            map.setCenter(coords);
-            new kakao.maps.Marker({ map: map, position: coords });
-        }
+    const marker = new naver.maps.Marker({ position: location, map: map, title: '중흥골드스파&리조트' });
+    const infowindow = new naver.maps.InfoWindow({
+        content: '<div style="padding:10px;min-width:160px;line-height:1.5;"><strong style="font-size:14px;">중흥골드스파&amp;리조트</strong><br><span style="font-size:12px;color:#666;">나주호로 558-314</span></div>'
     });
-})();
+    naver.maps.Event.addListener(marker, 'click', function() {
+        infowindow.getMap() ? infowindow.close() : infowindow.open(map, marker);
+    });
+    infowindow.open(map, marker);
+}
+initNaverMap();
+
+// ── 내비게이션 ──
+const PLACE_NAME = '중흥골드스파앤리조트';
+const LAT = 34.9798, LNG = 126.8968;
+
+function openNaverMap() {
+    window.open(`https://map.naver.com/v5/search/${encodeURIComponent(PLACE_NAME)}`, '_blank');
+}
+function openGoogleMap() {
+    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(PLACE_NAME)}`, '_blank');
+}
+function openKakaoNavi() {
+    window.location.href = `kakaomap://route?ep=${LAT},${LNG}&by=CAR`;
+    setTimeout(() => {
+        window.open(`https://map.kakao.com/link/to/${encodeURIComponent(PLACE_NAME)},${LAT},${LNG}`, '_blank');
+    }, 1000);
+}
+function openTmap() {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+        window.location.href = `tmap://route?goalname=${encodeURIComponent(PLACE_NAME)}&goalx=${LNG}&goaly=${LAT}`;
+        setTimeout(() => {
+            window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(PLACE_NAME)}`, '_blank');
+        }, 2000);
+    } else {
+        window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(PLACE_NAME)}`, '_blank');
+    }
+}
 
 // ── 카카오 SDK 초기화 & 공유 ──
 if (typeof Kakao !== 'undefined' && !Kakao.isInitialized()) {

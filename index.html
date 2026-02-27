@@ -717,7 +717,7 @@
 function initNaverMap() {
     if (typeof naver === 'undefined') return;
     // ⭐ 중흥골드스파&리조트 좌표 (나주호로 558-314)
-    const location = new naver.maps.LatLng(34.9798, 126.8968);
+    const location = new naver.maps.LatLng(34.947981, 126.871125);
     const map = new naver.maps.Map('map', {
         center: location,
         zoom: 16,
@@ -737,7 +737,7 @@ initNaverMap();
 
 // ── 내비게이션 ──
 const PLACE_NAME = '중흥골드스파앤리조트';
-const LAT = 34.9798, LNG = 126.8968;
+const LAT = 34.947981, LNG = 126.871125;
 
 function openNaverMap() {
     window.open(`https://map.naver.com/v5/search/${encodeURIComponent(PLACE_NAME)}`, '_blank');

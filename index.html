@@ -492,7 +492,7 @@
             padding: 0 24px 24px;
             line-height: 1.7;
         }
-        /* ── 음악 버튼 ── */
+        /* 음악 버튼 비활성화 (v2)
         .music-btn {
             position: fixed;
             top: 18px;
@@ -513,17 +513,17 @@
         }
         .music-btn:hover { opacity: 0.8; }
         .music-btn i { font-size: 16px; color: #555; }
+        */
     </style>
 </head>
 <body>
 
-<!-- 배경음악 -->
+<!-- 배경음악 비활성화 (v2)
 <audio id="bgMusic" src="27510D425854D91F34.mp3" loop></audio>
-
-<!-- 음악 토글 버튼 -->
 <button class="music-btn" id="musicBtn" onclick="toggleMusic()">
     <i class="fas fa-volume-up" id="musicIcon"></i>
 </button>
+-->
 
 <div class="invite-card">
 
@@ -832,7 +832,8 @@ function shareKakao() {
     });
 }
 
-// ── 배경음악 ──
+// 배경음악 비활성화 (v2)
+/*
 let musicPlaying = false;
 
 (function initMusic() {
@@ -849,10 +850,8 @@ let musicPlaying = false;
         }).catch(() => {});
     }
 
-    // 페이지 로드 시 바로 시도 (PC 일부 브라우저는 허용)
     startMusic();
 
-    // 실패 시 첫 터치/클릭 때 재생
     document.addEventListener('click', startMusic);
     document.addEventListener('touchstart', startMusic);
 })();
@@ -870,6 +869,7 @@ function toggleMusic() {
         icon.className = 'fas fa-volume-up';
     }
 }
+*/
 
 // ── 문의 아코디언 ──
 function toggleContact() {

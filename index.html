@@ -59,7 +59,7 @@
         }
         .event-title {
             font-family: 'MaruBuriOTF', serif;
-            font-size: 30px;
+            font-size: 30px;QUOTE
             font-weight: 700;
             font-style: Bold;
             color: #2d3142;
@@ -263,7 +263,7 @@
 
         /* ── 카카오 공유 ── */
         .share-section {
-            padding: 45px 24px 48px;
+            padding: 24px 24px 28px; /* 하단 여유는 조금만 남기기 */
         }
         .btn-kakao-share {
             width: 100%;
@@ -285,6 +285,22 @@
         .btn-kakao-share:hover { background: #f5dc00; }
         .btn-kakao-share i { font-size: 18px; }
 
+        /* 스크롤 등장(아래→위 + 페이드) */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(22px);
+            transition: transform 1100ms ease 180ms, opacity 1100ms ease 180ms;
+            will-change: transform, opacity;
+        }
+        /* 두번째 문구는 조금 더 빠르게 */
+        .reveal-up.reveal-up--fast {
+            transition: transform 480ms ease 40ms, opacity 480ms ease 40ms;
+        }
+        .reveal-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         /* 스크롤에 따라 배경을 어둡게 만드는 오버레이 */
         #bgOverlay {
             position: fixed;
@@ -304,9 +320,9 @@
         /* 요청하신 390 * 1890 (px) 캔버스 */
         #board {
             width: 100%;
-            height: 1950px;
+            height: 1990px;
             position: relative;
-            overflow: clip;
+            overflow: hidden;
             background: transparent; /* 프레임 PNG 투명 영역 흰 배경 보이는 것 방지 */
         }
 
@@ -339,16 +355,6 @@
         .music-btn:hover { opacity: 0.8; }
         .music-btn i { font-size: 16px; color: #555; }
         */
-        .quote-block {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-            will-change: opacity, transform;
-        }
-        .quote-block.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
     </style>
 </head>
 <body>
@@ -403,7 +409,7 @@
                 </div>
             </div> -->
 
-            <span class="event-sub" style="text-align: center; margin-top: 30px; margin-bottom: 20px;padding-top: 30px;">PROMO VIDEO</span>
+            <span class="event-sub" style="text-align: center; margin-top: 30px; margin-bottom: 20px; padding-top: 30px;">PROMO VIDEO</span>
 
             <!-- 영상 -->
             <div style="padding: 0 24px; margin-bottom: 32px;">
@@ -412,36 +418,32 @@
                 </video>
             </div>
 
-
-            
-
             <!-- 영상 대사 -->
-            <div class="quote-block" style="padding: 0 32px; margin-top: 60px; padding-top:60px; margin-bottom: 48px; text-align: center;">
+            <span class="event-sub" style="text-align: center; margin-top: 100px; margin-bottom: 6px; padding-top: 0px;">WORDS TO REMEMBER</span>
+            <div id="quoteImMir" class="reveal-up" style="padding: 0 32px; margin-top: 40px; padding-top:10px; margin-bottom: 48px; text-align: center;">
                 <p style="font-family: 'Crimson Pro', serif; font-size: 15px; color: #F6D84A; line-height: 1.8; letter-spacing: 0.5px; margin-bottom: 8px;">
-                    The opportunity to repay the 'Jeonggil-Loan' does not come every day. For those who fail to pay today, there shall be no mercy tomorrow.
-                    <br>
-                    <br>
+                    The opportunity to repay the 'Jeonggil-Loan' does<br>
+                    not come every day. For those who fail to pay<br>
+                    today, there shall be no mercy tomorrow.<br><br>
                     -Im-Mir, Daeseong Construction-
                 </p>
                 <p style="font-size: 13px; color: #E5E7EB; line-height: 1.8;">
-                    정길론 상환의 기회는 매일 찾아오지 않는다.<br> 오늘 갚지 못한 자에게, 내일의 자비란 없다.
-                    <br>
-                    <br>
-                     -대성건설 임미르-
+                    정길론 상환의 기회는 매일 찾아오지 않는다.<br>
+                    오늘 갚지 못한 자에게, 내일의 자비란 없다.<br><br>
+                    -대성건설 임미르-
                 </p>
             </div>
-            <div class="quote-block" style="padding: 0 32px; margin-top: 60px; padding-top:60px; margin-bottom: 48px; text-align: center;">
+            <div id="quoteYeom" class="reveal-up reveal-up--fast" style="padding: 0 32px; margin-top: 40px; padding-top:20px; margin-bottom: 48px; text-align: center;">
                 <p style="font-family: 'Crimson Pro', serif; font-size: 15px; color: #F6D84A; line-height: 1.8; letter-spacing: 0.5px; margin-bottom: 8px;">
-                    Repayment of the 'Jeonggil-Loan' is strictly first-come, first-served. The screams of the late are nothing but echoes that never return. 
-                    <br>
-                    <br>
+                    Repayment of the 'Jeonggil-Loan' is strictly first-<br>
+                    come, first-served. The screams of the late are<br>
+                    nothing but echoes that never return.<br><br>
                     -Yeom Jong-Hak, Seosan Co.-
                 </p>
                 <p style="font-size: 13px; color: #E5E7EB; line-height: 1.8;">
-                    정길론 상환은 오직 선착순이다.<br> 늦은 자의 비명은 돌아오지 않는 메아리에 볼과하다.
-                    <br>
-                    <br>
-                     -(주)서산 염종학-
+                    정길론 상환은 오직 선착순이다.<br>
+                    늦은 자의 비명은 돌아오지 않는 메아리에 불과하다.<br><br>
+                    -(주)서산 염종학-
                 </p>
             </div>
 
@@ -449,6 +451,7 @@
             <div style="padding: 0 24px; margin-bottom: 48px;">
                 <img src="images/개츠비_gif.gif" alt="개츠비" style="width:100%; border-radius:16px; display:block;">
             </div>
+
             <!-- 문의 아코디언 (v2 주석처리)
             <div class="contact-section">
                 <span class="contact-section-label">Contact</span>
@@ -508,13 +511,14 @@
 
 
 <script>
-
-    
     (function () {
         const overlay = document.getElementById("bgOverlay");
         if (!overlay) return;
 
         let ticking = false;
+        let darkReadyFired = false;
+        const MAX_OPACITY = 1.0;
+        const DARK_READY_AT = 0.28; // 어두워지기 시작한 뒤 조금 지난 시점에 등장 허용
 
         function update() {
             ticking = false;
@@ -524,14 +528,22 @@
 
             // "조금 더 내려야" 바뀌게 보이도록 시작 구간을 둠
             // progress가 start 이하이면 완전히 투명(0)
-            const start = 0; // 이 값보다 아래로 내려가야 어두워지기 시작
-            const gamma = 0.15; // 커질수록 후반에서 더 강하게 증가
+            const start = 0.12; // 더 빨리 어두워지기 시작
+            const gamma = 0.72; // 더 빨리(초반부터) 진해짐
 
             const tLinear = Math.min(1, Math.max(0, (progress - start) / (1 - start)));
             const t = Math.pow(tLinear, gamma);
 
             // 최대 어두움(더 진하게)
-            overlay.style.opacity = (0.95 * t).toFixed(3);
+            const opacity = MAX_OPACITY * t;
+            overlay.style.opacity = opacity.toFixed(3);
+
+            // 배경이 충분히 어두워진 뒤에만 등장 효과를 허용
+            if (!darkReadyFired && opacity >= DARK_READY_AT) {
+                darkReadyFired = true;
+                window.__bgDarkReady = true;
+                window.dispatchEvent(new Event("bgdarkready"));
+            }
         }
 
         function onScroll() {
@@ -543,39 +555,93 @@
         window.addEventListener("scroll", onScroll, { passive: true });
         window.addEventListener("resize", onScroll, { passive: true });
         update();
-
-        // ── quote-block 애니메이션 ──
-        const blocks = document.querySelectorAll('.quote-block');
-
-        // 스크롤로 트리거 (두 번째 이후)
-        function checkQuoteBlocks() {
-            blocks.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                const inView = rect.top < window.innerHeight - 50 && rect.bottom > 0;
-                if (inView) {
-                    el.classList.add('visible');
-                } else {
-                    el.classList.remove('visible');
-                }
-            });
-        }
-        window.addEventListener('scroll', checkQuoteBlocks, { passive: true });
-
-        // ── 인트로 제거 + 첫 번째 블록 fadeIn ──
-        setTimeout(() => {
-            document.getElementById('introScreen').remove();
-            setTimeout(() => {
-                if (blocks[0]) blocks[0].classList.add('visible');
-            }, 100);
-        }, 3000);
-        
-
-
-
     })();
     </script>
+
+<script>
+    // 인용문(임미르) 스크롤 등장 효과
+    (function () {
+        const el1 = document.getElementById("quoteImMir");
+        const el2 = document.getElementById("quoteYeom");
+        if (!el1) return;
+
+        // 처음엔 안 보이게(클래스가 이미 opacity 0)
+        // "스크롤 내렸을 때" 등장하게 하려면, 첫 스크롤 이후에만 관찰을 시작해야 함
+        const io1 = new IntersectionObserver(
+            (entries) => {
+                for (const entry of entries) {
+                    if (entry.isIntersecting) {
+                        el1.classList.add("is-visible");
+                        io1.disconnect();
+
+                        // 1번 애니메이션이 "끝난 뒤"에만 2번 관찰 시작
+                        if (el2) {
+                            let armed = false;
+                            const arm2Once = () => {
+                                if (armed) return;
+                                armed = true;
+                                arm2();
+                            };
+
+                            // opacity/transform 트랜지션 종료 시점에 맞춤
+                            el1.addEventListener("transitionend", arm2Once, { once: true });
+
+                            // 혹시 transitionend가 누락될 때를 대비한 안전장치
+                            setTimeout(arm2Once, 1500);
+                        }
+                        break;
+                    }
+                }
+            },
+            { root: null, threshold: 0.15 }
+        );
+
+        const io2 = el2
+            ? new IntersectionObserver(
+                  (entries) => {
+                      for (const entry of entries) {
+                          if (entry.isIntersecting) {
+                              el2.classList.add("is-visible");
+                              io2.disconnect();
+                              break;
+                          }
+                      }
+                  },
+                  { root: null, threshold: 0.15 }
+              )
+            : null;
+
+        function arm1() {
+            // 배경이 먼저 충분히 어두워진 후에만 관찰 시작
+            if (!window.__bgDarkReady) return;
+            io1.observe(el1);
+        }
+
+        function arm2() {
+            if (!el2 || !io2) return;
+            if (!window.__bgDarkReady) return;
+            io2.observe(el2);
+        }
+
+        // 사용자가 이미 어느 정도 내려온 상태로 열린 경우는 즉시 관찰
+        if (window.scrollY > 10) {
+            if (window.__bgDarkReady) {
+                arm1();
+                return;
+            }
+        }
+
+        // 1) 첫 스크롤 이후 + 2) 배경 어두워짐 완료 이후에만 트리거되게 연결
+        window.addEventListener("scroll", arm1, { passive: true });
+        window.addEventListener("bgdarkready", arm1, { passive: true, once: true });
+    })();
+</script>
 <script>
 
+// ── 인트로 ──
+setTimeout(() => {
+    document.getElementById('introScreen').remove();
+}, 3000);
 
 // 배경음악 비활성화 (v2)
 /*

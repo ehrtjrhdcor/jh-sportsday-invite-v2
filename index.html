@@ -306,7 +306,7 @@
             width: 390px;
             height: 1890px;
             position: relative;
-            overflow: hidden;
+            overflow: clip;
             background: transparent; /* 프레임 PNG 투명 영역 흰 배경 보이는 것 방지 */
         }
 
@@ -339,6 +339,16 @@
         .music-btn:hover { opacity: 0.8; }
         .music-btn i { font-size: 16px; color: #555; }
         */
+        .quote-block {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            will-change: opacity, transform;
+        }
+        .quote-block.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
@@ -402,8 +412,11 @@
                 </video>
             </div>
 
+
+            
+
             <!-- 영상 대사 -->
-            <div style="padding: 0 32px; margin-top: 60px; padding-top:60px; margin-bottom: 48px; text-align: center;">
+            <div class="quote-block" style="padding: 0 32px; margin-top: 60px; padding-top:60px; margin-bottom: 48px; text-align: center;">
                 <p style="font-family: 'Crimson Pro', serif; font-size: 15px; color: #F6D84A; line-height: 1.8; letter-spacing: 0.5px; margin-bottom: 8px;">
                     "The opportunity to repay the 'Jeonggil-Loan' does not come every day. For those who fail to pay today, there shall be no mercy tomorrow." -Im-Mir, Daeseong Construction-
                 </p>
@@ -411,7 +424,7 @@
                     "정길론 상환의 기회는 매일 찾아오지 않는다. 오늘 갚지 못한 자에게, 내일의 자비란 없다. -대성건설 임미르-"
                 </p>
             </div>
-            <div style="padding: 0 32px; margin-top: 60px; padding-top:60px; margin-bottom: 48px; text-align: center;">
+            <div class="quote-block" style="padding: 0 32px; margin-top: 60px; padding-top:60px; margin-bottom: 48px; text-align: center;">
                 <p style="font-family: 'Crimson Pro', serif; font-size: 15px; color: #F6D84A; line-height: 1.8; letter-spacing: 0.5px; margin-bottom: 8px;">
                     "Repayment of the 'Jeonggil-Loan' is strictly first-come, first-served. The screams of the late are nothing but echoes that never return." -Yeom Jong-Hak, Seosan Co.-
                 </p>
@@ -424,7 +437,6 @@
             <div style="padding: 0 24px; margin-bottom: 48px;">
                 <img src="images/개츠비_gif.gif" alt="개츠비" style="width:100%; border-radius:16px; display:block;">
             </div>
-
             <!-- 문의 아코디언 (v2 주석처리)
             <div class="contact-section">
                 <span class="contact-section-label">Contact</span>
@@ -484,6 +496,8 @@
 
 
 <script>
+
+    
     (function () {
         const overlay = document.getElementById("bgOverlay");
         if (!overlay) return;
@@ -498,8 +512,8 @@
 
             // "조금 더 내려야" 바뀌게 보이도록 시작 구간을 둠
             // progress가 start 이하이면 완전히 투명(0)
-            const start = 0.2; // 이 값보다 아래로 내려가야 어두워지기 시작
-            const gamma = 2.0; // 커질수록 후반에서 더 강하게 증가
+            const start = 0; // 이 값보다 아래로 내려가야 어두워지기 시작
+            const gamma = 0.15; // 커질수록 후반에서 더 강하게 증가
 
             const tLinear = Math.min(1, Math.max(0, (progress - start) / (1 - start)));
             const t = Math.pow(tLinear, gamma);
@@ -517,14 +531,39 @@
         window.addEventListener("scroll", onScroll, { passive: true });
         window.addEventListener("resize", onScroll, { passive: true });
         update();
+
+        // ── quote-block 애니메이션 ──
+        const blocks = document.querySelectorAll('.quote-block');
+
+        // 스크롤로 트리거 (두 번째 이후)
+        function checkQuoteBlocks() {
+            blocks.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const inView = rect.top < window.innerHeight - 50 && rect.bottom > 0;
+                if (inView) {
+                    el.classList.add('visible');
+                } else {
+                    el.classList.remove('visible');
+                }
+            });
+        }
+        window.addEventListener('scroll', checkQuoteBlocks, { passive: true });
+
+        // ── 인트로 제거 + 첫 번째 블록 fadeIn ──
+        setTimeout(() => {
+            document.getElementById('introScreen').remove();
+            setTimeout(() => {
+                if (blocks[0]) blocks[0].classList.add('visible');
+            }, 100);
+        }, 3000);
+        
+
+
+
     })();
     </script>
 <script>
 
-// ── 인트로 ──
-setTimeout(() => {
-    document.getElementById('introScreen').remove();
-}, 3000);
 
 // 배경음악 비활성화 (v2)
 /*

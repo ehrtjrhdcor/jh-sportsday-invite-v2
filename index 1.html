@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>중흥건설 초대장</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        background: #ffffff;
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      }
+
+      /* 스크롤에 따라 배경을 어둡게 만드는 오버레이 */
+      #bgOverlay {
+        position: fixed;
+        inset: 0;
+        background: #000000;
+        opacity: 0;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      #boardWrap {
+        padding: 20px 0;
+        position: relative;
+        z-index: 2; /* 오버레이보다 위 */
+      }
+
+      /* 요청하신 390 * 1890 (px) 캔버스 */
+      #board {
+        width: 390px;
+        height: 1890px;
+        position: relative;
+        overflow: hidden;
+        background: transparent; /* 프레임 PNG 투명 영역 흰 배경 보이는 것 방지 */
+      }
+
+      /* Frame 5 배치 */
+      #board img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: contain;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="bgOverlay" aria-hidden="true"></div>
+    <div id="boardWrap">
+      <div id="board" aria-label="390x1890 초대장">
+        <img src="images/Frame%205.png" alt="Frame 5" />
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const overlay = document.getElementById("bgOverlay");
+        if (!overlay) return;
+
+        let ticking = false;
+
+        function update() {
+          ticking = false;
+
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0; // 0.0 ~ 1.0
+
+          // "조금 더 내려야" 바뀌게 보이도록 시작 구간을 둠
+          // progress가 start 이하이면 완전히 투명(0)
+          const start = 0.65; // 이 값보다 아래로 내려가야 어두워지기 시작
+          const gamma = 2.0; // 커질수록 후반에서 더 강하게 증가
+
+          const tLinear = Math.min(1, Math.max(0, (progress - start) / (1 - start)));
+          const t = Math.pow(tLinear, gamma);
+
+          // 최대 어두움(더 진하게)
+          overlay.style.opacity = (0.95 * t).toFixed(3);
+        }
+
+        function onScroll() {
+          if (ticking) return;
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        update();
+      })();
+    </script>
+  </body>
+</html>

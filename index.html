@@ -69,11 +69,12 @@
 
         .event-title .hl { color: #2d3142; }
         .date-chip {
+            font-family: 'Pretendard', serif;
             display: inline-block;
-            background: transparent;
-            border: 1px solid #dddddd;
-            color: #333;
+            background: #F7F7F8;
+            border: 1px solid #D9D9DE;
             font-size: 13px;
+            color: #4B5563;
             font-weight: 700;
             padding: 6px 16px;
             border-radius: 20px;
@@ -273,6 +274,38 @@
         .btn-kakao-share:hover { background: #f5dc00; }
         .btn-kakao-share i { font-size: 18px; }
 
+        /* 스크롤에 따라 배경을 어둡게 만드는 오버레이 */
+        #bgOverlay {
+            position: fixed;
+            inset: 0;
+            background: #000000;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #boardWrap {
+            padding: 20px 0;
+            position: relative;
+            z-index: 2; /* 오버레이보다 위 */
+        }
+
+        /* 요청하신 390 * 1890 (px) 캔버스 */
+        #board {
+            width: 390px;
+            height: 1890px;
+            position: relative;
+            overflow: hidden;
+            background: transparent; /* 프레임 PNG 투명 영역 흰 배경 보이는 것 방지 */
+        }
+
+        /* Frame 5 배치 */
+        #board img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+        }
         /* 음악 버튼 비활성화 (v2)
         .music-btn {
             position: fixed;
@@ -311,129 +344,172 @@
     <img src="images/intro_v1.gif" alt="인트로">
 </div>
 
-<div class="invite-card">
+<div id="bgOverlay" aria-hidden="true"></div>
+<div id="boardWrap">
+    <div id="board" aria-label="390x1890 초대장">
 
-    <!-- 상단 이미지 -->
-    <div style="position: relative;">
-        <img src="images/박터트리기 1.png" alt="박터트리기" style="width:100%; display:block;">
-        <img src="images/confetti.gif" alt="confetti" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-    </div>
 
-    <!-- 타이틀 -->
-    <div class="title-section">
-        <span class="event-sub">Family Sports Day</span>
-        <h1 class="event-title">
-            <span class="hl">제 2회<br>쌍촌 하계 체육대회</span>
-        </h1>
-        <span class="date-chip">📅 2026. 05. 09 (토)</span>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- 초대 메시지 -->
-    <!-- <div class="message-section">
-        <div class="message-card">
-            <span class="message-label">초 / 대 / 합 / 니 / 다</span>
-            <div class="message-text">
-                우리는 아이들이 이기는 법뿐 아니라, <br>
-                지는 법도 배우길 바랍니다.<br>
-                <br>
-                피하지 않고, 끝까지 해보고,<br>
-                결과를 받아들이는 힘.<br>
-                <br>
-                가족이 함께 응원하고 함께 뛰는<br>
-                작지만 단단한 운동회를 준비했습니다.<br>
-                <br>
-                승부는 진지하게, 분위기는 유쾌하게.<br>
-                함께해 주세요.
+            <!-- 상단 이미지 -->
+            <div style="position: relative;">
+                <img src="images/박터트리기 1.png" alt="박터트리기" style="width:100%; display:block;">
+                <img src="images/confetti.gif" alt="confetti" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
             </div>
-            <div class="signature">— 정정길 배상 —</div>
-        </div>
-    </div> -->
 
-    <!-- 현장 사진: 아이들 시소 -->
-    <!-- <div class="photo-section">
-        <div class="photo-wrap">
-            <img src="/pages/images/KakaoTalk_20260227_144641627_01.jpg" alt="행사장">
-            <div class="photo-caption">중흥골드스파&amp;리조트 운동장</div>
-        </div>
-    </div> -->
+            <!-- 타이틀 -->
+            <div class="title-section">
+                <span class="event-sub">Family Sports Day</span>
+                <h1 class="event-title">
+                    <span class="hl">제 2회<br>쌍촌 하계 체육대회</span>
+                </h1>
+                <span class="date-chip">📅 2026. 05. 09 (토)</span>
+            </div>
 
-    <span class="event-sub" style="text-align: center; margin-top: 30px; margin-bottom: 20px;padding-top: 30px;">PROMO VIDEO</span>
+            <div class="divider"></div>
 
-    <!-- 영상 -->
-    <div style="padding: 0 24px; margin-bottom: 32px;">
-        <video controls style="width:100%; border-radius:16px;" playsinline poster="images/체육대회_260318_V3.png">
-            <source src="images/체육대회_260318_V3.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <!-- 영상 대사 -->
-    <div style="padding: 0 32px; margin-top: 60px; padding-top:60px; margin-bottom: 48px; text-align: center;">
-        <p style="font-family: 'Crimson Pro', serif; font-size: 15px; color: #F6D84A; line-height: 1.8; letter-spacing: 0.5px; margin-bottom: 8px;">
-            "I hope you live a life you're proud of."
-        </p>
-        <p style="font-size: 13px; color: #E5E7EB; line-height: 1.8;">
-            "당신이 자랑스러운 삶을 살길 바랍니다."
-        </p>
-    </div>
-
-    <!-- 개츠비 GIF -->
-    <div style="padding: 0 24px; margin-bottom: 48px;">
-        <img src="images/개츠비_gif.gif" alt="개츠비" style="width:100%; border-radius:16px; display:block;">
-    </div>
-
-    <!-- 문의 아코디언 (v2 주석처리)
-    <div class="contact-section">
-        <span class="contact-section-label">Contact</span>
-        <button class="contact-toggle" onclick="toggleContact()">
-            <span class="contact-toggle-label">문의</span>
-            <span class="contact-arrow" id="contactArrow">▼</span>
-        </button>
-        <div class="contact-content" id="contactContent">
-            <div class="contact-phone-row">
-                <div class="contact-phone-icon"><i class="fas fa-phone"></i></div>
-                <div>
-                    <div class="contact-phone-number">010-4946-4172</div>
-                    <div class="contact-phone-number">박홍진</div>
+            <!-- 초대 메시지 -->
+            <!-- <div class="message-section">
+                <div class="message-card">
+                    <span class="message-label">초 / 대 / 합 / 니 / 다</span>
+                    <div class="message-text">
+                        우리는 아이들이 이기는 법뿐 아니라, <br>
+                        지는 법도 배우길 바랍니다.<br>
+                        <br>
+                        피하지 않고, 끝까지 해보고,<br>
+                        결과를 받아들이는 힘.<br>
+                        <br>
+                        가족이 함께 응원하고 함께 뛰는<br>
+                        작지만 단단한 운동회를 준비했습니다.<br>
+                        <br>
+                        승부는 진지하게, 분위기는 유쾌하게.<br>
+                        함께해 주세요.
+                    </div>
+                    <div class="signature">— 정정길 배상 —</div>
                 </div>
-                <a class="contact-call-btn" href="tel:01049464172">전화하기</a>
-            </div>
-        </div>
-    </div>
-    -->
+            </div> -->
 
-    <!-- 후원 & 문의 -->
-    <div class="contact-section">
-        <span class="contact-section-label">Support</span>
-        <div class="contact-content" style="display:block;">
-            <div class="contact-phone-row" style="margin-bottom:14px; cursor:pointer;" onclick="sendKakaoPay('카카오뱅크', '3333-367318-334', '정정길')">
-                <div class="contact-phone-icon" style="background:#F5E960;">🏦</div>
-                <div>
-                    <div class="contact-phone-number">카카오뱅크</div>
-                    <div class="contact-phone-sub">후원계좌 · 3333-367318-334 · 정정길</div>
+            <!-- 현장 사진: 아이들 시소 -->
+            <!-- <div class="photo-section">
+                <div class="photo-wrap">
+                    <img src="/pages/images/KakaoTalk_20260227_144641627_01.jpg" alt="행사장">
+                    <div class="photo-caption">중흥골드스파&amp;리조트 운동장</div>
+                </div>
+            </div> -->
+
+            <span class="event-sub" style="text-align: center; margin-top: 30px; margin-bottom: 20px;padding-top: 30px;">PROMO VIDEO</span>
+
+            <!-- 영상 -->
+            <div style="padding: 0 24px; margin-bottom: 32px;">
+                <video controls style="width:100%; border-radius:16px;" playsinline poster="images/체육대회_260318_V3.png">
+                    <source src="images/체육대회_260318_V3.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <!-- 영상 대사 -->
+            <div style="padding: 0 32px; margin-top: 60px; padding-top:60px; margin-bottom: 48px; text-align: center;">
+                <p style="font-family: 'Crimson Pro', serif; font-size: 15px; color: #F6D84A; line-height: 1.8; letter-spacing: 0.5px; margin-bottom: 8px;">
+                    "I hope you live a life you're proud of."
+                </p>
+                <p style="font-size: 13px; color: #E5E7EB; line-height: 1.8;">
+                    "당신이 자랑스러운 삶을 살길 바랍니다."
+                </p>
+            </div>
+
+            <!-- 개츠비 GIF -->
+            <div style="padding: 0 24px; margin-bottom: 48px;">
+                <img src="images/개츠비_gif.gif" alt="개츠비" style="width:100%; border-radius:16px; display:block;">
+            </div>
+
+            <!-- 문의 아코디언 (v2 주석처리)
+            <div class="contact-section">
+                <span class="contact-section-label">Contact</span>
+                <button class="contact-toggle" onclick="toggleContact()">
+                    <span class="contact-toggle-label">문의</span>
+                    <span class="contact-arrow" id="contactArrow">▼</span>
+                </button>
+                <div class="contact-content" id="contactContent">
+                    <div class="contact-phone-row">
+                        <div class="contact-phone-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <div class="contact-phone-number">010-4946-4172</div>
+                            <div class="contact-phone-number">박홍진</div>
+                        </div>
+                        <a class="contact-call-btn" href="tel:01049464172">전화하기</a>
+                    </div>
                 </div>
             </div>
-            <a href="tel:01054562668" class="contact-phone-row" style="text-decoration:none; color:inherit; cursor:pointer;">
-                <div class="contact-phone-icon"><i class="fas fa-phone"></i></div>
-                <div>
-                    <div class="contact-phone-number">010-5456-2668</div>
-                    <div class="contact-phone-sub">후원문의 · 박수범</div>
+            -->
+
+            <!-- 후원 & 문의 -->
+            <div class="contact-section">
+                <span class="contact-section-label">Support</span>
+                <div class="contact-content" style="display:block;">
+                    <div class="contact-phone-row" style="margin-bottom:14px; cursor:pointer;" onclick="sendKakaoPay('카카오뱅크', '3333-367318-334', '정정길')">
+                        <div class="contact-phone-icon" style="background:#F5E960;">🏦</div>
+                        <div>
+                            <div class="contact-phone-number">카카오뱅크</div>
+                            <div class="contact-phone-sub">후원계좌 · 3333-367318-334 · 정정길</div>
+                        </div>
+                    </div>
+                    <a href="tel:01054562668" class="contact-phone-row" style="text-decoration:none; color:inherit; cursor:pointer;">
+                        <div class="contact-phone-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <div class="contact-phone-number">010-5456-2668</div>
+                            <div class="contact-phone-sub">후원문의 · 박수범</div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
-    </div>
+            </div>
 
-    <!-- 카카오톡 공유 -->
-    <div class="share-section">
-        <button class="btn-kakao-share" onclick="shareKakao()">
-            <i class="fas fa-comment-dots"></i>
-            카카오톡으로 공유하기
-        </button>
-    </div>
+            <!-- 카카오톡 공유 -->
+            <div class="share-section">
+                <button class="btn-kakao-share" onclick="shareKakao()">
+                    <i class="fas fa-comment-dots"></i>
+                    카카오톡으로 공유하기
+                </button>
+            </div>
 
+    </div>
 </div>
 
+
+
+
+<script>
+    (function () {
+        const overlay = document.getElementById("bgOverlay");
+        if (!overlay) return;
+
+        let ticking = false;
+
+        function update() {
+            ticking = false;
+
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0; // 0.0 ~ 1.0
+
+            // "조금 더 내려야" 바뀌게 보이도록 시작 구간을 둠
+            // progress가 start 이하이면 완전히 투명(0)
+            const start = 0.65; // 이 값보다 아래로 내려가야 어두워지기 시작
+            const gamma = 2.0; // 커질수록 후반에서 더 강하게 증가
+
+            const tLinear = Math.min(1, Math.max(0, (progress - start) / (1 - start)));
+            const t = Math.pow(tLinear, gamma);
+
+            // 최대 어두움(더 진하게)
+            overlay.style.opacity = (0.95 * t).toFixed(3);
+        }
+
+        function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(update);
+        }
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll, { passive: true });
+        update();
+    })();
+    </script>
 <script>
 
 // ── 인트로 ──

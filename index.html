@@ -16,7 +16,7 @@
         body {
             font-family: 'Gowun Dodum', '고운돋음', sans-serif;
             background: #F2F5FF;
-            min-height: 100vh;
+            min-height: 60vh;
             display: flex;
             justify-content: center;
             align-items: flex-start;
@@ -343,12 +343,6 @@
 </head>
 <body>
 
-<!-- 배경음악 비활성화 (v2)
-<audio id="bgMusic" src="27510D425854D91F34.mp3" loop></audio>
-<button class="music-btn" id="musicBtn" onclick="toggleMusic()">
-    <i class="fas fa-volume-up" id="musicIcon"></i>
-</button>
--->
 
 <!-- 인트로 -->
 <div class="intro-screen" id="introScreen">
@@ -358,13 +352,6 @@
 <div id="bgOverlay" aria-hidden="true"></div>
 <div id="boardWrap">
     <div id="board" aria-label="390x1890 초대장">
-
-
-            <!-- 상단 이미지 -->
-            <div style="position: relative;">
-                <img src="images/박터트리기 1.png" alt="박터트리기" style="width:100%; display:block;">
-                <img src="images/confetti.gif" alt="confetti" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
-            </div>
 
             <!-- 타이틀 -->
             <div class="title-section">
@@ -418,10 +405,18 @@
             <!-- 영상 대사 -->
             <div style="padding: 0 32px; margin-top: 60px; padding-top:60px; margin-bottom: 48px; text-align: center;">
                 <p style="font-family: 'Crimson Pro', serif; font-size: 15px; color: #F6D84A; line-height: 1.8; letter-spacing: 0.5px; margin-bottom: 8px;">
-                    "I hope you live a life you're proud of."
+                    "The opportunity to repay the 'Jeonggil-Loan' does not come every day. For those who fail to pay today, there shall be no mercy tomorrow." -Im-Mir, Daeseong Construction-
                 </p>
                 <p style="font-size: 13px; color: #E5E7EB; line-height: 1.8;">
-                    "당신이 자랑스러운 삶을 살길 바랍니다."
+                    "정길론 상환의 기회는 매일 찾아오지 않는다. 오늘 갚지 못한 자에게, 내일의 자비란 없다. -대성건설 임미르-"
+                </p>
+            </div>
+            <div style="padding: 0 32px; margin-top: 60px; padding-top:60px; margin-bottom: 48px; text-align: center;">
+                <p style="font-family: 'Crimson Pro', serif; font-size: 15px; color: #F6D84A; line-height: 1.8; letter-spacing: 0.5px; margin-bottom: 8px;">
+                    "Repayment of the 'Jeonggil-Loan' is strictly first-come, first-served. The screams of the late are nothing but echoes that never return." -Yeom Jong-Hak, Seosan Co.-
+                </p>
+                <p style="font-size: 13px; color: #E5E7EB; line-height: 1.8;">
+                    정길론 상환은 오직 선착순이다. 늦은 자의 비명은 돌아오지 않는 메아리에 볼과하다. -(주)서산 염종학-
                 </p>
             </div>
 
@@ -503,7 +498,7 @@
 
             // "조금 더 내려야" 바뀌게 보이도록 시작 구간을 둠
             // progress가 start 이하이면 완전히 투명(0)
-            const start = 0.5; // 이 값보다 아래로 내려가야 어두워지기 시작
+            const start = 0.2; // 이 값보다 아래로 내려가야 어두워지기 시작
             const gamma = 2.0; // 커질수록 후반에서 더 강하게 증가
 
             const tLinear = Math.min(1, Math.max(0, (progress - start) / (1 - start)));
